@@ -4,6 +4,10 @@ This is a monorepo of a fullstack store front project for the Laserants Typescri
 
 ## Tech Stack
 
+### Monorepo
+
+- Turborepo
+
 ### Back-end
 
 - Express
