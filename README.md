@@ -7,6 +7,7 @@ This is a monorepo of a fullstack store front project for the Laserants Typescri
 ### Back-end
 
 - Express
+- PostgreSQL 
 - Prisma
 - Typescript
 
