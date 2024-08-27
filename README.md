@@ -1,10 +1,16 @@
-# Typescript Web Development
+# Store Front
 
-This is a monorepo to apply typescript use cases.
+This is a monorepo of a fullstack store front project for the Laserants Typescript Bootcamp
 
-### Apps and Packages
+## Tech Stack
 
-- `server`: an [express](https://expressjs.com/) server app
-- `client`: a react [vite](https://vitejs.dev) ts app
-- `@repo/eslint-config`: shared `eslint` configurations
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+### Back-end
+
+- Express
+- Prisma
+- Typescript
+
+### Front-end
+
+- React
+- Tailwind CSS
