@@ -53,7 +53,7 @@ pnpm install
 
 4. Create a .env file with the following structure inside of Packages > database
 
-```json
+```
 POSTGRES_USER= //ANY USERNAME
 POSTGRES_PASSWORD= //ANY PASSWORD
 POSTGRES_DB= //ANY DB NAME
