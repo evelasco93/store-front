@@ -8,57 +8,43 @@ datasource db {
 }
 
 model Product {
-  id          Int          @id @default(autoincrement())
-  name        String
-  description String?
-  image       String?
-  variants    Variant[]
-  options     Option[]
-  collections Collection[]
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
+  id           String     @id @default(uuid())
+  name         String
+  imageUrl     String
+  description  String?
+  price        Float
+  variants     Variant[] // One product can have multiple variants
+  collection   Collection @relation(fields: [collectionId], references: [id])
+  collectionId String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
 }
 
 model Collection {
-  id          Int       @id @default(autoincrement())
+  id          String    @id @default(uuid())
   name        String
   description String?
-  products    Product[]
+  products    Product[] // One collection can have multiple products
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 }
 
 model Variant {
-  id           Int           @id @default(autoincrement())
-  product      Product       @relation(fields: [productId], references: [id])
-  productId    Int
-  name         String
-  description  String?
-  image        String?
-  sku          String
-  price        Int
-  stock        Int
-  optionValues OptionValue[]
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
+  id        String   @id @default(uuid())
+  product   Product  @relation(fields: [productId], references: [id])
+  productId String
+  options   Option[] // One variant can have multiple options (e.g., different sizes and colors)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Option {
-  id        Int           @id @default(autoincrement())
-  product   Product       @relation(fields: [productId], references: [id])
-  productId Int
-  name      String
-  values    OptionValue[]
-  createdAt DateTime      @default(now())
-  updatedAt DateTime      @updatedAt
-}
-
-model OptionValue {
-  id        Int       @id @default(autoincrement())
-  option    Option    @relation(fields: [optionId], references: [id])
-  optionId  Int
-  value     String
-  variants  Variant[]
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  id        String   @id @default(uuid())
+  color     String
+  size      String
+  variant   Variant  @relation(fields: [variantId], references: [id])
+  variantId String
+  stock     Int // Quantity available for this particular option
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
