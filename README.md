@@ -51,7 +51,7 @@ volta install pnpm
 pnpm install
 ```
 
-4. Create a .env file with the following structure inside of Packages > database
+4. Create a .env file with the following variables inside of Packages > database
 
 ```
 POSTGRES_USER= //ANY USERNAME
