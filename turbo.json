@@ -16,6 +16,9 @@
     "db:migrate": {
       "cache": false
     },
+    "db:init": {
+      "cache": false
+    },
     "build": {
       "dependsOn": ["^build", "^db:generate"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
