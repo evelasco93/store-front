@@ -1,15 +1,15 @@
-import { ErrorCodes } from './common/types'
+import { ErrorCodes, ErrorMessages, StatusCodes } from './types'
 import express from 'express'
 
 export class CustomError extends Error {
-  public statusCode: number
-  public errorCode: string
+  public statusCode: StatusCodes
+  public errorCode: ErrorCodes
 
-  constructor(statusCode: number, errorCode: string, message: string) {
+  constructor(statusCode: StatusCodes, errorCode: ErrorCodes, message: string) {
     super(message)
     this.statusCode = statusCode
     this.errorCode = errorCode
-    Object.setPrototypeOf(this, new.target.prototype) // restore prototype chain
+    Object.setPrototypeOf(this, new.target.prototype)
   }
 }
 
@@ -26,18 +26,18 @@ export class ErrorHandler {
 
   static notFoundError(res: express.Response, id: string, entity: string) {
     const message = `${entity} with ID ${id} not found.`
-    return res.status(404).json({
+    return res.status(StatusCodes.NOT_FOUND).json({
       status: 'error',
-      statusCode: 404,
+      statusCode: StatusCodes.NOT_FOUND,
       errorCode: ErrorCodes.NOT_FOUND,
       message,
     })
   }
 
-  static badRequestError(res: express.Response, message: string) {
-    return res.status(400).json({
+  static badRequestError(res: express.Response, message: ErrorMessages) {
+    return res.status(StatusCodes.BAD_REQUEST).json({
       status: 'error',
-      statusCode: 400,
+      statusCode: StatusCodes.BAD_REQUEST,
       errorCode: ErrorCodes.BAD_REQUEST,
       message,
     })
