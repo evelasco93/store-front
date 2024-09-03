@@ -51,7 +51,8 @@ export function variantsRoute(app: Express): void {
 
   router.post('/:variantId/options', async (req, res) => {
     try {
-      const option = await service.createOptionForVariant(req.body)
+      const data = { ...req.body, ...req.params }
+      const option = await service.createOptionForVariant(data)
       return res.status(StatusCodes.CREATED).json({ option })
     } catch (error) {
       ErrorHandler.handleError(error as CustomError, res)
