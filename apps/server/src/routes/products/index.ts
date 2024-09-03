@@ -53,7 +53,7 @@ export function productsRoute(app: Express): void {
       if (!id || !data) {
         return ErrorHandler.badRequestError(res, ErrorMessages.INVALID_INPUT)
       }
-      const product = await service.updateProduct(id, data)
+      const product = await service.updateSingleProduct(id, data)
       return res.json({ product })
     } catch (error) {
       ErrorHandler.handleError(error as CustomError, res)

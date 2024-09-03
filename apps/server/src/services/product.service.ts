@@ -4,6 +4,10 @@ import { CustomError } from '../common/errorHandler'
 import { ErrorCodes, ErrorMessages, StatusCodes } from '../common/types'
 
 export class ProductServices {
+  /**
+   * Gets all Products with its variants and option values for those variants from the Products table
+   * @returns An array of Products
+   */
   async getAllProducts(): Promise<Product[]> {
     try {
       return await prisma.product.findMany({
@@ -24,6 +28,11 @@ export class ProductServices {
     }
   }
 
+  /**
+   * Gets a single Product using its ID
+   * @param id ID of the product
+   * @returns The Product details
+   */
   async getSingleProduct(id: string): Promise<Product> {
     const product = await prisma.product.findUnique({
       where: { id },
@@ -47,6 +56,11 @@ export class ProductServices {
     return product
   }
 
+  /**
+   * Creates a single Product
+   * @param data Object with the needed parameters to create a Product
+   * @returns The created Product
+   */
   async createSingleProduct(data: Product): Promise<Product> {
     try {
       return await prisma.product.create({ data })
@@ -59,7 +73,13 @@ export class ProductServices {
     }
   }
 
-  async updateProduct(id: string, data: Product): Promise<Product> {
+  /**
+   * Update a single Product using its ID
+   * @param id ID of the Product to update
+   * @param data Object with the parameters to update
+   * @returns The updated Product
+   */
+  async updateSingleProduct(id: string, data: Product): Promise<Product> {
     try {
       const updatedProduct = await prisma.product.update({
         where: { id },
@@ -84,6 +104,11 @@ export class ProductServices {
     }
   }
 
+  /**
+   * Delete a single Product using its ID
+   * @param id ID of the Product to delete
+   * @returns The details of the deleted Product
+   */
   async deleteSingleProduct(id: string): Promise<Product> {
     try {
       const deletedProduct = await prisma.product.delete({ where: { id } })

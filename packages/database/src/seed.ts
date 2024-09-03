@@ -2,10 +2,12 @@ import { PrismaClient } from '@prisma/client'
 import { faker } from '@faker-js/faker'
 
 const prisma = new PrismaClient()
-
+/**
+ * Function to seed data into the database for testing
+ */
 async function seed() {
   // Create Collections
-  const collections = await prisma.collection.createMany({
+  await prisma.collection.createMany({
     data: Array.from({ length: 3 }).map(() => ({
       name: `${faker.color.human()} Collection`,
       description: faker.lorem.sentence(),
@@ -18,7 +20,7 @@ async function seed() {
 
   for (const collection of collectionIds) {
     // Create Products within each Collection
-    const products = await prisma.product.createMany({
+    await prisma.product.createMany({
       data: Array.from({ length: 5 }).map(() => ({
         name: faker.commerce.productName(),
         imageUrl: faker.image.url(),
@@ -40,7 +42,7 @@ async function seed() {
 
     for (const product of productIds) {
       // Create Variants for each Product
-      const variants = await prisma.variant.createMany({
+      await prisma.variant.createMany({
         data: Array.from({ length: 3 }).map(() => ({
           productId: product.id,
         })),
@@ -53,7 +55,7 @@ async function seed() {
 
       for (const variant of variantIds) {
         // Create Options for each Variant
-        const options = await prisma.option.createMany({
+        await prisma.option.createMany({
           data: Array.from({ length: 3 }).map(() => ({
             color: faker.color.human(),
             size: faker.helpers.arrayElement(['S', 'M', 'L', 'XL']),

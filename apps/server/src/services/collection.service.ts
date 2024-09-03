@@ -4,6 +4,10 @@ import { CustomError } from '../common/errorHandler'
 import { ErrorCodes, ErrorMessages, StatusCodes } from '../common/types'
 
 export class CollectionServices {
+  /**
+   * Gets all Collections from the Collections table
+   * @returns An array of Collections
+   */
   async getAllCollections(): Promise<Collection[]> {
     try {
       const collections = await prisma.collection.findMany()
@@ -17,6 +21,11 @@ export class CollectionServices {
     }
   }
 
+  /**
+   * Gets a single collection from the Collections table
+   * @param id The id of the Collection
+   * @returns The Collection found with that ID
+   */
   async getSingleCollection(id: string): Promise<Collection> {
     try {
       const collection = await prisma.collection.findUnique({ where: { id } })
@@ -37,6 +46,11 @@ export class CollectionServices {
     }
   }
 
+  /**
+   * Creates a single Collection and inserts it in the database
+   * @param data Object with the needed params
+   * @returns The created Collection
+   */
   async createSingleCollection(data: Collection): Promise<Collection> {
     try {
       const createdCollection = await prisma.collection.create({ data })
@@ -50,6 +64,12 @@ export class CollectionServices {
     }
   }
 
+  /**
+   * Updates a single Collection using its ID
+   * @param id ID of the collection to be modified
+   * @param data Object of parameters to be updated
+   * @returns The updated Collection
+   */
   async updateSingleCollection(
     id: string,
     data: Collection,

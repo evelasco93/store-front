@@ -4,6 +4,10 @@ import { CustomError } from '../common/errorHandler'
 import { ErrorCodes, ErrorMessages, StatusCodes } from '../common/types'
 
 export class VariantServices {
+  /**
+   * Gets all Variants from the Variants table
+   * @returns An array of Variants
+   */
   async getAllVariants(): Promise<Variant[]> {
     try {
       return await prisma.variant.findMany()
@@ -16,6 +20,11 @@ export class VariantServices {
     }
   }
 
+  /**
+   * Gets a single Variant using its ID
+   * @param id ID of the Variant
+   * @returns The details of the Variant
+   */
   async getSingleVariant(id: string): Promise<Variant> {
     const variant = await prisma.variant.findUnique({ where: { id } })
 
@@ -30,6 +39,11 @@ export class VariantServices {
     return variant
   }
 
+  /**
+   * Gets the Option Values for a single Variant
+   * @param variantId The ID of the Variant
+   * @returns An array of Options for the specific Variant
+   */
   async getVariantOptions(variantId: string): Promise<Option[]> {
     try {
       return await prisma.option.findMany({ where: { variantId } })
@@ -42,6 +56,11 @@ export class VariantServices {
     }
   }
 
+  /**
+   * Creates a single Variant
+   * @param productId ID of the Product that this Variant is for
+   * @returns The created Variant
+   */
   async createSingleVariant(productId: string): Promise<Variant> {
     try {
       return await prisma.variant.create({ data: { productId } })
@@ -54,6 +73,11 @@ export class VariantServices {
     }
   }
 
+  /**
+   * Add Options to a single Variant
+   * @param data The object with parameters for the Option Values
+   * @returns The created Option for the Variant
+   */
   async createOptionForVariant(data: Option): Promise<Option> {
     try {
       return await prisma.option.create({ data })
