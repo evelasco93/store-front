@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@store-front-typescript-bootcamp/db": "workspace:*",
+    "@store-front-typescript-bootcamp/schemas": "workspace:*",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "express": "^4.19.2"
@@ -18,7 +19,6 @@
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
-    "@store-front-typescript-bootcamp/schemas": "workspace:*",
     "@types/body-parser": "^1.19.5",
     "@types/cors": "2.8.17",
     "@types/express": "^4.17.21",

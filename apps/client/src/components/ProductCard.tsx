@@ -9,18 +9,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         id={product.id}
       >
         <div className="variants mt-4">
-          {product.variants.map((variant) => (
-            <div key={variant.id} className="variant">
-              <div className="images flex gap-2">
-                <img
-                  key={variant.imageUrls[0]}
-                  src={variant.imageUrls[0]}
-                  alt={product.name}
-                  className="object-cover"
-                />
-              </div>
-            </div>
-          ))}
+          <div className="images flex gap-2">
+            <img
+              key={product.variants[0].imageUrls[0]}
+              src={product.variants[0].imageUrls[0]}
+              alt={product.variants[0].imageUrls[0]}
+              className="object-cover"
+            />
+          </div>
         </div>
         <h2 className="text-xl font-semibold">{product.name}</h2>
         <p className="text-lg font-bold">${product.price.toFixed(2)}</p>
