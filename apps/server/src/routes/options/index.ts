@@ -33,6 +33,21 @@ export function optionsRoute(app: Express): void {
     }
   })
 
+  router.post('/create-option', async function (req, res) {
+    try {
+      const data = req.body
+
+      if (!data) {
+        return ErrorHandler.badRequestError(res, ErrorMessages.INVALID_INPUT)
+      }
+
+      const newOption = await service.createVariantOption(data)
+      return res.json({ newOption })
+    } catch (error) {
+      ErrorHandler.handleError(error as CustomError, res)
+    }
+  })
+
   router.put('/:id', async function (req, res) {
     try {
       const { id } = req.params

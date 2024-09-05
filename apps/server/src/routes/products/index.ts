@@ -32,7 +32,7 @@ export function productsRoute(app: Express): void {
     }
   })
 
-  router.post('/', async (req, res) => {
+  router.post('/new-product', async (req, res) => {
     try {
       const data = req.body
       if (!data) {

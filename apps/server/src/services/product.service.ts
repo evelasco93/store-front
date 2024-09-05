@@ -2,23 +2,62 @@ import { Product } from '@store-front-typescript-bootcamp/db'
 import { prisma } from '../routes/lib/prismaClient'
 import { CustomError } from '../common/errorHandler'
 import { ErrorCodes, ErrorMessages, StatusCodes } from '../common/types'
+import {OptionDTO, ProductDTO, VariantDTO } from '@store-front-typescript-bootcamp/schemas'
 
 export class ProductServices {
   /**
-   * Gets all Products with its variants and option values for those variants from the Products table
-   * @returns An array of Products
+   * Maps Prisma Product model to ProductDTO
    */
-  async getAllProducts(): Promise<Product[]> {
+  private mapProductToDTO(product: any ): ProductDTO {
+    return {
+      id: product.id,
+      name: product.name,
+      description: product.description!,
+      price: product.price,
+      collectionName: product.collection.name, // Access collection's name
+      variants: product.variants.map((variant: any) => this.mapVariantToDTO(variant)),
+    }
+  }
+
+  /**
+   * Maps Prisma Variant model to VariantDTO
+   */
+  private mapVariantToDTO(variant: any): VariantDTO {
+    return {
+      id: variant.id,
+      imageUrls: variant.imageUrls,
+      color: variant.color,
+      options: variant.options.map((option: any) => this.mapOptionToDTO(option)),
+    }
+  }
+
+  /**
+   * Maps Prisma Option model to OptionDTO
+   */
+  private mapOptionToDTO(option: any): OptionDTO {
+    return {
+      size: option.size,
+      stock: option.stock,
+    }
+  }
+
+  /**
+   * Gets all Products with its variants and option values for those variants
+   * @returns An array of ProductDTO
+   */
+  async getAllProducts(): Promise<ProductDTO[]> {
     try {
-      return await prisma.product.findMany({
+      const products = await prisma.product.findMany({
         include: {
+          collection: { select: { name: true } }, // Include only the collection name
           variants: {
             include: {
-              options: { select: { color: true, size: true, stock: true } },
+              options: { select: { size: true, stock: true } },
             },
           },
         },
       })
+      return products.map((product) => this.mapProductToDTO(product))
     } catch (error) {
       throw new CustomError(
         StatusCodes.INTERNAL_SERVER_ERROR,
@@ -31,15 +70,16 @@ export class ProductServices {
   /**
    * Gets a single Product using its ID
    * @param id ID of the product
-   * @returns The Product details
+   * @returns The ProductDTO details
    */
-  async getSingleProduct(id: string): Promise<Product> {
+  async getSingleProduct(id: string): Promise<ProductDTO> {
     const product = await prisma.product.findUnique({
       where: { id },
       include: {
+        collection: { select: { name: true } }, // Include only the collection name
         variants: {
           include: {
-            options: { select: { color: true, size: true, stock: true } },
+            options: { select: { size: true, stock: true } },
           },
         },
       },
@@ -53,7 +93,7 @@ export class ProductServices {
       )
     }
 
-    return product
+    return this.mapProductToDTO(product)
   }
 
   /**
