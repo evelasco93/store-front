@@ -1,8 +1,9 @@
-import { Option, Product, Variant } from '@store-front-typescript-bootcamp/db'
+import { Option, Prisma, Product, Variant } from '@store-front-typescript-bootcamp/db'
 import { prisma } from '../routes/lib/prismaClient'
 import { CustomError } from '../common/errorHandler'
 import { ErrorCodes, ErrorMessages, StatusCodes } from '../common/types'
 import {OptionDTO, ProductDTO, VariantDTO } from '@store-front-typescript-bootcamp/schemas'
+import { ParsedQs } from 'qs'
 
 export class ProductServices {
   /**
@@ -46,9 +47,23 @@ export class ProductServices {
    * Gets all Products with its variants and option values for those variants
    * @returns An array of ProductDTO
    */
-  async getAllProducts(): Promise<ProductDTO[]> {
+  async getProducts({ search, collectionId }: { search?: string | string[] | ParsedQs | ParsedQs[] | undefined; collectionId?: string | string[] | ParsedQs | ParsedQs[] | undefined }): Promise<ProductDTO[]> {
     try {
-      const products = await prisma.product.findMany({
+      const query: Prisma.ProductFindManyArgs = {
+        where: {
+          AND: [
+            search
+              ? {
+                  OR: [
+                    { name: { contains: search, mode: 'insensitive' } },
+                    { collection: { name: { contains: search, mode: 'insensitive' } } },
+                    { variants: { some: { color: { contains: search, mode: 'insensitive' } } } }
+                  ]
+                }
+              : {},
+            collectionId ? { collectionId } : {}
+          ]
+        },
         include: {
           collection: { select: { name: true, id: true } },
           variants: {
@@ -57,16 +72,19 @@ export class ProductServices {
             },
           },
         },
-      })
-      return products.map((product) => this.mapProductToDTO(product))
+      };
+  
+      const products = await prisma.product.findMany(query);
+      return products.map((product) => this.mapProductToDTO(product));
     } catch (error) {
       throw new CustomError(
         StatusCodes.INTERNAL_SERVER_ERROR,
         ErrorCodes.INTERNAL_SERVER_ERROR,
         error as string,
-      )
+      );
     }
   }
+  
 
   /**
    * Gets a single Product using its ID

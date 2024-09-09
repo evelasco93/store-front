@@ -10,14 +10,17 @@ export function productsRoute(app: Express): void {
 
   app.use(`${baseApiUrl}/products`, router)
 
-  router.get('/', async (_, res) => {
-    try {
-      const products = await service.getAllProducts()
-      return res.json({ products })
-    } catch (error) {
-      ErrorHandler.handleError(error as CustomError, res)
-    }
-  })
+  // Example endpoint update
+router.get('/', async (req, res) => {
+  const { search, collectionId } = req.query;
+  try {
+    const products = await service.getProducts({ search, collectionId });
+    return res.json({ products });
+  } catch (error) {
+    ErrorHandler.handleError(error as CustomError, res);
+  }
+});
+
 
   router.get('/:id', async (req, res) => {
     try {

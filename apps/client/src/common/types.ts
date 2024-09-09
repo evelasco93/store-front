@@ -7,3 +7,7 @@ import { CollectionDTO, ProductDTO } from "@store-front-typescript-bootcamp/sche
   export interface ICollectionListProps {
     collection: CollectionDTO
   }
+
+  export interface SearchBarProps {
+    onSearch: (query: string) => void;
+  }
