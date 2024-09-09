@@ -33,6 +33,7 @@ model Variant {
   product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId String
   color     String
+  colorCode String
   imageUrls String[]
   options   Option[]
   createdAt DateTime @default(now())

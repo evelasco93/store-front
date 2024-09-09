@@ -4,8 +4,8 @@ import * as data from './data'
 const prisma = new PrismaClient()
 
 const shirtHoodieColors = [
-  "Black", "Pearl Gray", "Beige",
-  "Bottle Green",
+  "Black", "Red", "Gray Marl",
+  "Pearl Gray",
   "Navy blue", "Pale pink",
   "Dark khaki", "Anthracite grey"
 ];
@@ -78,6 +78,7 @@ async function seed() {
     prisma.variant.createMany({
       data: data.variantDataShirt1.map((variant) => ({
         color: variant.color,
+        colorCode: variant.colorCode,
         imageUrls: variant.imageUrls,
         productId: productMap['BASIC HEAVYWEIGHT T-SHIRT']
       })),
@@ -85,6 +86,7 @@ async function seed() {
     prisma.variant.createMany({
       data: data.variantDataShirt2.map((variant) => ({
         color: variant.color,
+        colorCode: variant.colorCode,
         imageUrls: variant.imageUrls,
         productId: productMap['BASIC SLIM FIT T-SHIRT']
       })),
@@ -92,6 +94,7 @@ async function seed() {
     prisma.variant.createMany({
       data: data.variantDataJeans1.map((variant) => ({
         color: variant.color,
+        colorCode: variant.colorCode,
         imageUrls: variant.imageUrls,
         productId: productMap['BAGGY FIT JEANS']
       })),
@@ -99,6 +102,7 @@ async function seed() {
     prisma.variant.createMany({
       data: data.variantDataJeans2.map((variant) => ({
         color: variant.color,
+        colorCode: variant.colorCode,
         imageUrls: variant.imageUrls,
         productId: productMap['STRAIGHT FIT JEANS']
       })),
@@ -106,6 +110,7 @@ async function seed() {
     prisma.variant.createMany({
       data: data.variantDataHoodie1.map((variant) => ({
         color: variant.color,
+        colorCode: variant.colorCode,
         imageUrls: variant.imageUrls,
         productId: productMap['HOODIE SWEATSHIRT']
       })),
@@ -113,6 +118,7 @@ async function seed() {
     prisma.variant.createMany({
       data: data.variantDataHoodie2.map((variant) => ({
         color: variant.color,
+        colorCode: variant.colorCode,
         imageUrls: variant.imageUrls,
         productId: productMap['PATCHES HOODED JACKET']
       })),

@@ -27,7 +27,7 @@ export const AllCollectionItem: React.FC<{ onClick: () => void }> = ({
 }) => {
   return (
     <div className="collection-list-item cursor-pointer" onClick={onClick}>
-      <p className="collection-item-name text-sm text-gray-600">All</p>
+      <p className="collection-item-name text-sm text-gray-600">ALL</p>
     </div>
   )
 }

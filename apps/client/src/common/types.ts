@@ -8,6 +8,12 @@ import { CollectionDTO, ProductDTO } from "@store-front-typescript-bootcamp/sche
     collection: CollectionDTO
   }
 
-  export interface SearchBarProps {
-    onSearch: (query: string) => void;
+  export interface ISearchBarProps {
+    onSearch: (query: string) => void
+    value: string
   }
+
+  export interface ISortOptionsProps {
+    sortBy: string;
+    onSortChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+}

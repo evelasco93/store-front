@@ -1,8 +1,9 @@
-import express, { Express } from 'express'
+import express, { Express, Request, Response } from 'express'
 import { ErrorMessages, StatusCodes } from '../../common/types'
 import { CustomError, ErrorHandler } from '../../common/errorHandler'
 import { baseApiUrl } from '../../common/constants'
 import { ProductServices } from '../../services/product.service'
+
 
 export function productsRoute(app: Express): void {
   const router = express.Router()
@@ -10,17 +11,19 @@ export function productsRoute(app: Express): void {
 
   app.use(`${baseApiUrl}/products`, router)
 
-  // Example endpoint update
-router.get('/', async (req, res) => {
-  const { search, collectionId } = req.query;
-  try {
-    const products = await service.getProducts({ search, collectionId });
-    return res.json({ products });
-  } catch (error) {
-    ErrorHandler.handleError(error as CustomError, res);
-  }
-});
-
+  router.get('/', async (req: Request, res: Response) => {
+    
+    const search = req.query.search as unknown as string
+    const collectionId = req.query.collectionId as unknown as string
+    const sortBy = req.query.sortBy as unknown as string;
+    try {
+      const products = await service.getProducts(search, collectionId, sortBy);
+      return res.json({ products });
+    } catch (error) {
+      ErrorHandler.handleError(error as CustomError, res);
+    }
+  });
+  
 
   router.get('/:id', async (req, res) => {
     try {

@@ -1,12 +1,17 @@
-import React, { useState } from 'react'
-import { SearchBarProps } from '../common/types'
+import React, { useState, KeyboardEvent } from 'react'
+import { ISearchBarProps } from '../common/types'
 
-export const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
-  const [query, setQuery] = useState('')
+export const SearchBar: React.FC<ISearchBarProps> = ({ onSearch, value }) => {
+  const [query, setQuery] = useState(value)
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value)
-    onSearch(event.target.value)
+  }
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      onSearch(query)
+    }
   }
 
   return (
@@ -15,8 +20,9 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
         type="text"
         value={query}
         onChange={handleChange}
+        onKeyDown={handleKeyDown}
         placeholder="SEARCH FOR AN ITEM, COLOR, COLLECTION..."
-        className="w-full max-w-xl p-2 border rounded-lg"
+        className="w-full p-2 border rounded-lg"
       />
     </div>
   )

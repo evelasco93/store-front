@@ -2,8 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+.slick-prev:before, .slick-next:before{
+  color: black !important;
+  opacity: .60 !important;
+}
+
 .product-card:hover {
   transform: scale(1.02);
+}
+
+.collection-item-name:hover{
+  color: red
+}
+
+.product-image-container {
+  max-width: 500px;
+}
+
+.color-button{
+  margin-right: 10px;
 }
 
 /* Scale up hit targets on high resolution mobile devices. */
