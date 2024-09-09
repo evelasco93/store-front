@@ -5,6 +5,7 @@ export interface ProductDTO {
   name: string
   description?: string
   price: number
-  variants: VariantDTO[]
   collectionName: string
+  collectionId: string
+  variants: VariantDTO[] 
 }

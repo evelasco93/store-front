@@ -1,4 +1,4 @@
-import { Product } from '@store-front-typescript-bootcamp/db'
+import { Option, Product, Variant } from '@store-front-typescript-bootcamp/db'
 import { prisma } from '../routes/lib/prismaClient'
 import { CustomError } from '../common/errorHandler'
 import { ErrorCodes, ErrorMessages, StatusCodes } from '../common/types'
@@ -15,7 +15,8 @@ export class ProductServices {
       description: product.description!,
       price: product.price,
       collectionName: product.collection.name, // Access collection's name
-      variants: product.variants.map((variant: any) => this.mapVariantToDTO(variant)),
+      collectionId: product.collection.id,
+      variants: product.variants.map((variant: Variant) => this.mapVariantToDTO(variant)),
     }
   }
 
@@ -27,14 +28,14 @@ export class ProductServices {
       id: variant.id,
       imageUrls: variant.imageUrls,
       color: variant.color,
-      options: variant.options.map((option: any) => this.mapOptionToDTO(option)),
+      options: variant.options.map((option: Option) => this.mapOptionToDTO(option)),
     }
   }
 
   /**
    * Maps Prisma Option model to OptionDTO
    */
-  private mapOptionToDTO(option: any): OptionDTO {
+  private mapOptionToDTO(option: Option): OptionDTO {
     return {
       size: option.size,
       stock: option.stock,
@@ -49,7 +50,7 @@ export class ProductServices {
     try {
       const products = await prisma.product.findMany({
         include: {
-          collection: { select: { name: true } }, // Include only the collection name
+          collection: { select: { name: true, id: true } },
           variants: {
             include: {
               options: { select: { size: true, stock: true } },
@@ -76,7 +77,7 @@ export class ProductServices {
     const product = await prisma.product.findUnique({
       where: { id },
       include: {
-        collection: { select: { name: true } }, // Include only the collection name
+        collection: { select: { name: true, id: true } }, 
         variants: {
           include: {
             options: { select: { size: true, stock: true } },

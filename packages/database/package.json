@@ -7,10 +7,11 @@
     "db:seed": "tsx ./src/seed.ts",
     "db:generate": "prisma generate",
     "db:migrate": "prisma db push --skip-generate",
-    "db:init": "pnpm exec turbo db:start && pnpm exec turbo db:migrate"
+    "db:init": "pnpm exec turbo db:start && pnpm exec turbo db:migrate && pnpm exec turbo db:seed"
   },
   "dependencies": {
-    "@prisma/client": "5.19.0"
+    "@prisma/client": "5.19.0",
+    "@store-front-typescript-bootcamp/schemas": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^22.5.1",

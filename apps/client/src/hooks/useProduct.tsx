@@ -5,7 +5,8 @@ import { ProductDTO } from '@store-front-typescript-bootcamp/schemas'
 
 const fetchProduct = async (id: string): Promise<ProductDTO> => {
   const { data } = await axios.get(`${BASE_API_URL}/products/${id}`)
-  return data.product
+  const productData = data
+  return productData.product
 }
 
 export const useProduct = (id: string) => {

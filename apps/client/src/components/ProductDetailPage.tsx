@@ -1,9 +1,9 @@
-import { ProductCardProps } from '../common/types'
+import { IProductCardProps } from '../common/types'
 
-export const ProductDetailCard: React.FC<ProductCardProps> = ({ product }) => {
+export const ProductDetailPage: React.FC<IProductCardProps> = ({ product }) => {
   return (
-    <main className="page-detail">
-      <div className="product-card">
+    <main className="page-detail container flex flex-col gap-8 justify-center items-center min-h-screen p-8 text-center mx-auto">
+      <div className="product-details">
         <div className="product-pictures">
           <div className="images flex gap-2">
             {product.variants.map((variant) => (
@@ -12,7 +12,7 @@ export const ProductDetailCard: React.FC<ProductCardProps> = ({ product }) => {
                   <img
                     key={index}
                     src={url}
-                    alt={product.name}
+                    alt={variant.color}
                     className="w-16 h-16 object-cover"
                   />
                 ))}

@@ -1,5 +1,5 @@
 import { createFileRoute, useParams } from '@tanstack/react-router'
-import { ProductDetailCard } from '../../components/ProductDetail'
+import { ProductDetailPage } from '../../components/ProductDetailPage'
 import { useProduct } from '../../hooks/useProduct'
 import { Product } from '../../common/types'
 import { usePageTitle } from '../../hooks/usePageTitle'
@@ -15,9 +15,5 @@ function ProductDetail() {
   if (isLoading) return <div>Loading...</div>
   if (isError) return <div>Error: {error.message}</div>
 
-  return (
-    <main className="container flex flex-col gap-8 justify-center items-center min-h-screen p-8 text-center mx-auto">
-      <ProductDetailCard product={data as Product} />
-    </main>
-  )
+  return <ProductDetailPage product={data as Product} />
 }

@@ -1,7 +1,7 @@
-import { ProductCardProps } from '../common/types'
+import { IProductCardProps } from '../common/types'
 import { Link } from '@tanstack/react-router'
 
-export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+export const ProductCard: React.FC<IProductCardProps> = ({ product }) => {
   return (
     <Link to={`/product/${product.id}`} className="block">
       <div
@@ -20,7 +20,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </div>
         <h2 className="text-xl font-semibold">{product.name}</h2>
         <p className="text-lg font-bold">${product.price.toFixed(2)}</p>
-        <p className="text-sm text-gray-600">{product.collectionName}</p>
+        <p className="text-sm text-gray-600">
+          {product.collectionName.toUpperCase()}
+        </p>
       </div>
     </Link>
   )

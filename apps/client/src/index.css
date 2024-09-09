@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.product-card:hover {
+  transform: scale(1.02);
+}
+
 /* Scale up hit targets on high resolution mobile devices. */
 @media (min-resolution: 200dpi) {
   html {
