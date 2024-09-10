@@ -12,10 +12,18 @@ export const SortOptions: React.FC<ISortOptionsProps> = ({
         onChange={onSortChange}
         className="p-2 border rounded-lg"
       >
-        <option value="name-asc">Name A-Z</option>
-        <option value="name-desc">Name Z-A</option>
-        <option value="price-asc">Price Low to High</option>
-        <option value="price-desc">Price High to Low</option>
+        <option className="filter-option-item" value="name-asc">
+          Name A-Z
+        </option>
+        <option className="filter-option-item" value="name-desc">
+          Name Z-A
+        </option>
+        <option className="filter-option-item" value="price-asc">
+          Price Low to High
+        </option>
+        <option className="filter-option-item" value="price-desc">
+          Price High to Low
+        </option>
       </select>
     </div>
   )

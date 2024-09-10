@@ -1,20 +1,17 @@
-import { ICollectionListProps } from '../common/types'
+import { ICollectionItemProps } from '../common/types'
 
-interface CollectionItemProps extends ICollectionListProps {
-  onClick: (collectionId: string | null) => void // Updated type to accept null
-}
-
-export const CollectionItem: React.FC<CollectionItemProps> = ({
+export const CollectionItem: React.FC<ICollectionItemProps> = ({
   collection,
   onClick,
+  selected,
 }) => {
   return (
     <div
-      className="collection-list-item cursor-pointer"
+      className={`collection-list-item cursor-pointer ${selected ? 'text-blue-600' : 'text-gray-600'}`}
       id={collection.id}
       onClick={() => onClick(collection.id)}
     >
-      <p className="collection-item-name text-sm text-gray-600">
+      <p className="collection-item-name text-sm">
         {collection.name.toUpperCase()}
       </p>
     </div>
@@ -22,12 +19,16 @@ export const CollectionItem: React.FC<CollectionItemProps> = ({
 }
 
 // Adding component for artificial all option since it is not coming from the db
-export const AllCollectionItem: React.FC<{ onClick: () => void }> = ({
-  onClick,
-}) => {
+export const AllCollectionItem: React.FC<{
+  onClick: () => void
+  selectedCollection: boolean
+}> = ({ onClick, selectedCollection }) => {
   return (
-    <div className="collection-list-item cursor-pointer" onClick={onClick}>
-      <p className="collection-item-name text-sm text-gray-600">ALL</p>
+    <div
+      className={`collection-list-item cursor-pointer ${selectedCollection ? 'text-blue-600' : 'text-gray-600'}`}
+      onClick={onClick}
+    >
+      <p className="collection-item-name text-sm">ALL</p>
     </div>
   )
 }
