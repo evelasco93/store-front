@@ -39,21 +39,11 @@ export function variantsRoute(app: Express): void {
     }
   })
 
-  router.post('/:productId', async (req, res) => {
+  router.post('/create-variant', async (req, res) => {
     try {
-      const { productId } = req.params
-      const variant = await service.createSingleVariant(productId)
+      const data = req.body
+      const variant = await service.createSingleVariant(data)
       return res.status(StatusCodes.CREATED).json({ variant })
-    } catch (error) {
-      ErrorHandler.handleError(error as CustomError, res)
-    }
-  })
-
-  router.post('/:variantId/options', async (req, res) => {
-    try {
-      const data = { ...req.body, ...req.params }
-      const option = await service.createOptionForVariant(data)
-      return res.status(StatusCodes.CREATED).json({ option })
     } catch (error) {
       ErrorHandler.handleError(error as CustomError, res)
     }

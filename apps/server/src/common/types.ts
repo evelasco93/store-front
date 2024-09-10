@@ -23,3 +23,33 @@ export enum ErrorMessages {
   OPTION_NOT_FOUND = 'Option not found',
   INVALID_INPUT = 'Invalid input provided',
 }
+
+export type Option = {
+  size: string;
+  stock: number;
+}
+
+export type Variant = {
+  id: string;
+  color: string;
+  colorCode: string;
+  imageUrls: string[];
+  options: Option[];
+}
+
+
+export type Collection = {
+  id: string;
+  name: string;
+}
+
+export type Product = {
+  id: string;
+  name: string;
+  description?: string;
+  price: number;
+  collection: Collection;
+  variants: Variant[];
+}
+
+

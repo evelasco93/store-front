@@ -61,26 +61,9 @@ export class VariantServices {
    * @param productId ID of the Product that this Variant is for
    * @returns The created Variant
    */
-  async createSingleVariant(productId: string): Promise<Variant> {
+  async createSingleVariant(data: Variant): Promise<Variant> {
     try {
-      return await prisma.variant.create({ data: { productId } })
-    } catch (error) {
-      throw new CustomError(
-        StatusCodes.INTERNAL_SERVER_ERROR,
-        ErrorCodes.INTERNAL_SERVER_ERROR,
-        error as string,
-      )
-    }
-  }
-
-  /**
-   * Add Options to a single Variant
-   * @param data The object with parameters for the Option Values
-   * @returns The created Option for the Variant
-   */
-  async createOptionForVariant(data: Option): Promise<Option> {
-    try {
-      return await prisma.option.create({ data })
+      return await prisma.variant.create({ data })
     } catch (error) {
       throw new CustomError(
         StatusCodes.INTERNAL_SERVER_ERROR,

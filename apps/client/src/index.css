@@ -2,6 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
+.slick-prev:before, .slick-next:before{
+  color: black !important;
+  opacity: .60 !important;
+}
+
+.product-card:hover {
+  transform: scale(1.02);
+}
+
+.collection-item-name:hover{
+  color: #1967d2
+}
+
+.product-image-container {
+  max-width: 500px;
+}
+
+.color-button{
+  margin-right: 10px;
+}
+
+.text-blue-600 {
+  color: #1967d2;
+}
+
+.bg-blue-600 {
+  background-color: #1967d2;
+}
+
+.border-blue-600 {
+  border-color: #1967d2;
+}
 /* Scale up hit targets on high resolution mobile devices. */
 @media (min-resolution: 200dpi) {
   html {

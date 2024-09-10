@@ -1,10 +1,26 @@
+import { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
+import { RouterProvider, createRouter } from '@tanstack/react-router'
+import { CartProvider } from './context/CartContext'
 import './index.css'
-import React from 'react'
+import { routeTree } from './routeTree.gen'
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
+const router = createRouter({ routeTree })
+
+declare module '@tanstack/react-router' {
+  interface Register {
+    router: typeof router
+  }
+}
+
+const rootElement = document.getElementById('root')!
+if (!rootElement.innerHTML) {
+  const root = ReactDOM.createRoot(rootElement)
+  root.render(
+    <StrictMode>
+      <CartProvider>
+        <RouterProvider router={router} />
+      </CartProvider>
+    </StrictMode>,
+  )
+}

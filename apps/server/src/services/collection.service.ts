@@ -10,7 +10,11 @@ export class CollectionServices {
    */
   async getAllCollections(): Promise<Collection[]> {
     try {
-      const collections = await prisma.collection.findMany()
+      const collections = await prisma.collection.findMany({
+        include: {
+          products: { include: { variants: { include: { options: true } } } },
+        },
+      })
       return collections
     } catch (error) {
       throw new CustomError(
@@ -28,7 +32,10 @@ export class CollectionServices {
    */
   async getSingleCollection(id: string): Promise<Collection> {
     try {
-      const collection = await prisma.collection.findUnique({ where: { id } })
+      const collection = await prisma.collection.findUnique({
+        where: { id },
+        include: { products: true },
+      })
       if (!collection) {
         throw new CustomError(
           StatusCodes.NOT_FOUND,

@@ -12,8 +12,9 @@ This is a monorepo of a fullstack store front project for the Laserants Typescri
 
 ### Front-end
 
-- React
+- React + Typescript
 - Tailwind CSS
+- GSAP
 
 ## Getting Started
 

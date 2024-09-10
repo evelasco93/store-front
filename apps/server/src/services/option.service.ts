@@ -10,7 +10,9 @@ export class OptionServices {
    */
   async getAllOptions(): Promise<Option[]> {
     try {
-      const options = await prisma.option.findMany()
+      const options = await prisma.option.findMany({
+        include: { variant: { include: { options: true } } },
+      })
       return options
     } catch (error) {
       throw new CustomError(
@@ -28,7 +30,14 @@ export class OptionServices {
    */
   async getSingleOption(id: string): Promise<Option> {
     try {
-      const option = await prisma.option.findUnique({ where: { id } })
+      const option = await prisma.option.findUnique({
+        where: { id },
+        include: {
+          variant: {
+            include: { options: true },
+          },
+        },
+      })
       if (!option) {
         throw new CustomError(
           StatusCodes.NOT_FOUND,
@@ -37,6 +46,26 @@ export class OptionServices {
         )
       }
       return option
+    } catch (error) {
+      throw new CustomError(
+        StatusCodes.INTERNAL_SERVER_ERROR,
+        ErrorCodes.INTERNAL_SERVER_ERROR,
+        error as string,
+      )
+    }
+  }
+
+  /**
+   * Creates a single option for a variant
+   * @param data size, stock and variantId
+   * @returns the new option for the variant
+   */
+  async createVariantOption(data: Option): Promise<Option> {
+    try {
+      const createOption = await prisma.option.create({
+        data,
+      })
+      return createOption
     } catch (error) {
       throw new CustomError(
         StatusCodes.INTERNAL_SERVER_ERROR,

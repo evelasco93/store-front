@@ -7,44 +7,45 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Collection {
+  id          String    @id @default(uuid())
+  name        String
+  description String?
+  products    Product[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
 model Product {
   id           String     @id @default(uuid())
   name         String
-  imageUrl     String
   description  String?
   price        Float
-  variants     Variant[] // One product can have multiple variants
+  variants     Variant[]
   collection   Collection @relation(fields: [collectionId], references: [id])
   collectionId String
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
 }
 
-model Collection {
-  id          String    @id @default(uuid())
-  name        String
-  description String?
-  products    Product[] // One collection can have multiple products
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-}
-
 model Variant {
   id        String   @id @default(uuid())
-  product   Product  @relation(fields: [productId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId String
-  options   Option[] // One variant can have multiple options (e.g., different sizes and colors)
+  color     String
+  colorCode String
+  imageUrls String[]
+  options   Option[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Option {
   id        String   @id @default(uuid())
-  color     String
   size      String
-  variant   Variant  @relation(fields: [variantId], references: [id])
+  variant   Variant  @relation(fields: [variantId], references: [id], onDelete: Cascade)
   variantId String
-  stock     Int // Quantity available for this particular option
+  stock     Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
