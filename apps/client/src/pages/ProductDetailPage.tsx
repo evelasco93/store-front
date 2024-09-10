@@ -120,7 +120,7 @@ export const ProductDetailPage: React.FC<IProductCardProps> = ({ product }) => {
                   )?.stock || 1
                 }
                 onChange={(e) => setQuantity(Number(e.target.value))}
-                className="border border-gray-300 p-2 rounded w-10"
+                className="border border-gray-300 p-2 rounded w-13"
               />
             </div>
           </div>
