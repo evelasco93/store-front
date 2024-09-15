@@ -1,0 +1,12 @@
+{
+    "extends": "./tsconfig.json",
+    "include": ["test/**/*.ts"],  // Adjust paths as needed
+    "exclude": ["node_modules"],
+    "compilerOptions": {
+      "noEmit": true,
+      "types": ["jest"],  
+      "esModuleInterop": true,
+      "skipLibCheck": true  
+    }
+  }
+  
