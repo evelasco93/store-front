@@ -6,6 +6,7 @@ export class ProductPage {
   private readonly prevPicture: Locator
   private readonly addToBagButton: Locator
   private readonly shoppingBag: Locator
+  private readonly shoppingBag2: Locator
   private readonly checkoutButton: Locator
 
   constructor(page: Page) {
@@ -14,6 +15,7 @@ export class ProductPage {
     this.nextPicture = page.getByRole('button', { name: '→ Next' })
     this.addToBagButton = page.getByRole('button', { name: 'Add to Bag' })
     this.shoppingBag = page.getByRole('button', { name: '1' })
+    this.shoppingBag2 = page.getByRole('button', { name: '2' })
     this.checkoutButton = page.getByRole('button', { name: 'Checkout' })
   }
 
@@ -34,7 +36,7 @@ export class ProductPage {
     await this.page.getByLabel(`Select Size ${size.toUpperCase()}`).click();
   }
 
-  async addToBag(size: string, color: string){
+  async addToBag(color: string, size: string, ){
     this.selectColor(color)
     this.selectSize(size)
     await this.addToBagButton.click();
@@ -42,6 +44,11 @@ export class ProductPage {
 
   async checkOut(){
     await this.shoppingBag.click();
+    await this.checkoutButton.click();
+  }
+
+  async checkOut2(){
+    await this.shoppingBag2.click();
     await this.checkoutButton.click();
   }
 

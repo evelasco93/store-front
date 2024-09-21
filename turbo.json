@@ -25,6 +25,8 @@
       "outputs": ["dist/**"]
     },
     "test": {},
+    "e2e:run": {},
+    "e2e:report": {},
     "lint": {
       "dependsOn": ["^lint"]
     },
