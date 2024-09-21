@@ -1,0 +1,22 @@
+{
+  "name": "e2e",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "e2e:run": "playwright test",
+    "e2e:report": "playwright show-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "client": "workspace:*",
+    "server": "workspace:*",
+    "@store-front-typescript-bootcamp/db": "workspace:*",
+    "@store-front-typescript-bootcamp/eslint-config": "workspace:*",
+    "@store-front-typescript-bootcamp/typescript-config": "workspace:*",
+    "@playwright/test": "^1.47.2",
+    "@types/node": "^22.5.1"
+  }
+}
