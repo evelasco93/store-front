@@ -1,0 +1,6 @@
+{
+    "extends": "@store-front-typescript-bootcamp/typescript-config/base.json",
+    "exclude": ["node_modules"],
+    "include": ["tests/**/*", "pages/**/*", "playwright.config.ts"]
+  }
+  
